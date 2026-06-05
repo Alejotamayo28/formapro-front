@@ -40,7 +40,91 @@ function describeFilters(filters: PaymentFilters) {
   return `${active.length} filtro${active.length === 1 ? "" : "s"} activo${active.length === 1 ? "" : "s"}`;
 }
 
+function SkeletonBlock({ className = "" }: { className?: string }) {
+  return <div className={`animate-pulse rounded-2xl bg-slate-200/80 ${className}`} />;
+}
+
+function DashboardSkeleton() {
+  return (
+    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+      <header className="rounded-[2rem] border border-white/70 bg-white/70 p-6 shadow-soft backdrop-blur md:p-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="w-full max-w-2xl">
+            <SkeletonBlock className="h-4 w-44" />
+            <SkeletonBlock className="mt-4 h-11 w-full max-w-lg" />
+            <SkeletonBlock className="mt-4 h-5 w-full max-w-xl" />
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col lg:items-end">
+            <SkeletonBlock className="h-10 w-40 rounded-full" />
+            <SkeletonBlock className="h-9 w-72 rounded-full" />
+          </div>
+        </div>
+      </header>
+
+      <section className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <SkeletonBlock className="h-3 w-24" />
+          <SkeletonBlock className="mt-3 h-8 w-64" />
+        </div>
+        <SkeletonBlock className="h-5 w-36" />
+      </section>
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <section key={index} className="rounded-3xl border border-white/70 bg-white/85 p-5 shadow-soft backdrop-blur">
+            <SkeletonBlock className="h-2 w-12" />
+            <SkeletonBlock className="mt-7 h-4 w-28" />
+            <SkeletonBlock className="mt-3 h-9 w-36" />
+            <SkeletonBlock className="mt-3 h-3 w-32" />
+          </section>
+        ))}
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+        {Array.from({ length: 2 }).map((_, index) => (
+          <section key={index} className="rounded-3xl border border-white/70 bg-white/85 p-5 shadow-soft backdrop-blur">
+            <SkeletonBlock className="h-3 w-28" />
+            <SkeletonBlock className="mt-3 h-6 w-56" />
+            <SkeletonBlock className="mt-3 h-4 w-full max-w-sm" />
+            <div className="mt-8 space-y-5">
+              <SkeletonBlock className="h-4 w-full" />
+              <SkeletonBlock className="h-4 w-10/12" />
+              <SkeletonBlock className="h-4 w-8/12" />
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <section className="rounded-3xl border border-white/70 bg-white/85 p-5 shadow-soft backdrop-blur">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <SkeletonBlock className="h-3 w-24" />
+            <SkeletonBlock className="mt-3 h-6 w-28" />
+            <SkeletonBlock className="mt-3 h-4 w-full max-w-xl" />
+          </div>
+          <SkeletonBlock className="h-12 w-32" />
+        </div>
+        <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <SkeletonBlock key={index} className="h-14 w-full" />
+          ))}
+        </div>
+      </section>
+
+      <section className="rounded-3xl border border-white/70 bg-white/85 p-5 shadow-soft backdrop-blur">
+        <SkeletonBlock className="h-7 w-32" />
+        <div className="mt-6 space-y-3">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <SkeletonBlock key={index} className="h-12 w-full" />
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
 export function Dashboard() {
+  const [mounted, setMounted] = useState(false);
   const [apiStatus, setApiStatus] = useState<ApiStatus>("checking");
   const [filters, setFilters] = useState<PaymentFilters>({});
   const [summary, setSummary] = useState<PaymentsSummaryResponse | null>(null);
@@ -57,6 +141,10 @@ export function Dashboard() {
   const [exportError, setExportError] = useState<string | null>(null);
 
   const filterDescription = useMemo(() => describeFilters(filters), [filters]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -151,6 +239,10 @@ export function Dashboard() {
     } finally {
       setExporting(false);
     }
+  }
+
+  if (!mounted) {
+    return <DashboardSkeleton />;
   }
 
   return (
