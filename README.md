@@ -51,24 +51,6 @@ La URL actual de la API usada por el frontend es:
 https://api-logali.alejotamayo.com/
 ```
 
-## Cómo ejecutar el proyecto
-
-Instalar dependencias:
-
-```bash
-npm install
-```
-
-Ejecutar en local:
-
-```bash
-npm run dev
-```
-
-Abrir en el navegador:
-
 ```txt
-http://localhost:5173
+https://api-logali.alejotamayo.com/docs
 ```
-```
-
