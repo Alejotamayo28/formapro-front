@@ -271,6 +271,14 @@ export function Dashboard() {
             >
               API documentación
             </a>
+            <a
+              href="https://github.com/Alejotamayo28/formapro-api"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-brand-100 bg-white/70 px-4 py-2 text-xs font-bold text-brand-700 transition hover:border-brand-200 hover:bg-brand-50"
+            >
+              API GitHub
+            </a>
           </div>
         </div>
       </header>
