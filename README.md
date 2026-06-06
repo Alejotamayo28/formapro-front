@@ -17,6 +17,18 @@ El dashboard está desplegado en Cloudflare Pages:
 https://ui-logali.alejotamayo.com/
 ```
 
+La URL actual de la API usada por el frontend es:
+
+```txt
+https://api-logali.alejotamayo.com/
+```
+
+Documentación OpenAPI/Swagger de la API:
+
+```txt
+https://api-logali.alejotamayo.com/docs
+```
+
 Además, configuré cache en el edge de Cloudflare únicamente para las rutas de lectura más usadas por el dashboard:
 
 - `GET /payments`
@@ -53,15 +65,3 @@ El dashboard incluye:
 La `service_role key` de Supabase **no está en el navegador ni en el repositorio**.
 
 El frontend no se conecta directamente a Supabase con claves privadas. Solo consume la API pública creada para este reto, que es la encargada de leer los datos desde Supabase.
-
-La URL actual de la API usada por el frontend es:
-
-```txt
-https://api-logali.alejotamayo.com/
-```
-
-Documentación OpenAPI/Swagger de la API:
-
-```txt
-https://api-logali.alejotamayo.com/docs
-```
