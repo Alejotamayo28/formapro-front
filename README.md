@@ -4,10 +4,10 @@ Dashboard web creado para la **Prueba 2** del reto técnico. La aplicación perm
 
 En este proyecto decidí separar la solución en dos partes:
 
-- **API**: se conecta a Supabase y expone endpoints seguros de lectura.
+- **API backend**: se conecta a Supabase y expone endpoints seguros de lectura.
 - **Frontend**: consume esa API y muestra el dashboard de pagos.
 
-De esta forma, el navegador nunca necesita acceder a claves sensibles de Supabase.
+Esta decisión de arquitectura evita exponer credenciales sensibles de Supabase en el navegador y permite centralizar en el backend la lógica de métricas, filtros, paginación y exportación.
 
 ## URL desplegada
 
@@ -22,9 +22,9 @@ Además, configuré cache en el edge de Cloudflare únicamente para las rutas de
 - `GET /payments`
 - `GET /payments/summary`
 
-No se cachean rutas como exportación CSV, health.
+No se cachean rutas como exportación CSV, health checks, documentación ni endpoints que puedan volverse sensibles.
 
-## Tech stack
+## Stack técnico
 
 - Next.js
 - React
@@ -59,6 +59,8 @@ La URL actual de la API usada por el frontend es:
 ```txt
 https://api-logali.alejotamayo.com/
 ```
+
+Documentación OpenAPI/Swagger de la API:
 
 ```txt
 https://api-logali.alejotamayo.com/docs
