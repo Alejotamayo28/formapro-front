@@ -24,6 +24,15 @@ Además, configuré cache en el edge de Cloudflare únicamente para las rutas de
 
 No se cachean rutas como exportación CSV, health.
 
+## Tech stack
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Cloudflare Pages
+- Cloudflare edge cache para lecturas de la API
+
 ## Qué muestra el dashboard
 
 El dashboard incluye:
