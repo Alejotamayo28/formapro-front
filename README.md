@@ -9,9 +9,24 @@ En este proyecto decidí separar la solución en dos partes:
 
 De esta forma, el navegador nunca necesita acceder a claves sensibles de Supabase.
 
+## URL desplegada
+
+El dashboard está desplegado en Cloudflare Pages:
+
+```txt
+https://ui-logali.alejotamayo.com/
+```
+
+Además, configuré cache en el edge de Cloudflare únicamente para las rutas de lectura más usadas por el dashboard:
+
+- `GET /payments`
+- `GET /payments/summary`
+
+No se cachean rutas como exportación CSV, health.
+
 ## Qué muestra el dashboard
 
-El dashboard incluye los requisitos solicitados en la prueba:
+El dashboard incluye:
 
 - **Ingresos totales**, calculados solo con pagos `completed`.
 - **Número total de pagos**.
@@ -55,24 +70,5 @@ Abrir en el navegador:
 ```txt
 http://localhost:5173
 ```
-
-## Validación antes de entregar
-
-Comandos usados para revisar que el proyecto esté correcto:
-
-```bash
-npm run lint
-npm run typecheck
-npm run build
 ```
 
-## Notas sobre el desarrollo con IA
-
-Usé IA como apoyo para acelerar la construcción del dashboard, revisar estructura, mejorar componentes y validar detalles de la entrega. Aun así, revisé el resultado para asegurarme de entender la arquitectura, el flujo de datos, el formateo de moneda y las implicaciones de seguridad.
-
-## Estructura general
-
-- `app/`: páginas principales de Next.js.
-- `components/`: componentes visuales del dashboard.
-- `lib/`: funciones para consumir la API y formatear datos.
-- `types/`: tipos TypeScript de pagos y respuestas.
