@@ -6,7 +6,7 @@ import { Card, SectionTitle } from "@/components/ui";
 
 type FilterForm = {
   status: PaymentStatus | "";
-  currency: PaymentCurrency | "";
+  currency: PaymentCurrency;
   course: string;
   name: string;
   email: string;
@@ -33,7 +33,7 @@ function toForm(filters: PaymentFilters): FilterForm {
 function toFilters(form: FilterForm): PaymentFilters {
   return {
     status: form.status || undefined,
-    currency: form.currency || undefined,
+    currency: form.currency.trim() || undefined,
     course: form.course.trim() || undefined,
     name: form.name.trim() || undefined,
     email: form.email.trim() || undefined,
@@ -101,15 +101,12 @@ export function FiltersPanel({
 
         <label className="space-y-1.5 text-sm font-medium text-slate-600">
           <span>Moneda</span>
-          <select
+          <input
             value={form.currency}
-            onChange={(event) => setForm((current) => ({ ...current, currency: event.target.value as FilterForm["currency"] }))}
-            className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-3 text-slate-900 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-100"
-          >
-            <option value="">Todas</option>
-            <option value="cop">COP</option>
-            <option value="usd">USD</option>
-          </select>
+            onChange={(event) => setForm((current) => ({ ...current, currency: event.target.value }))}
+            placeholder="Todas · Ej. COP, USD, EUR"
+            className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-100"
+          />
         </label>
 
         <label className="space-y-1.5 text-sm font-medium text-slate-600">

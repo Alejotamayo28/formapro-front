@@ -1,4 +1,4 @@
-export type PaymentCurrency = "cop" | "usd";
+export type PaymentCurrency = string;
 
 export type PaymentStatus = "completed" | "refunded";
 

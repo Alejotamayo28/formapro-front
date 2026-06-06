@@ -1,5 +1,5 @@
 import type { PaymentsSummaryResponse } from "@/types/payments";
-import { formatCurrency, formatNumber } from "@/lib/format";
+import { formatCurrencyWithCode, formatNumber } from "@/lib/format";
 import { Card, Spinner } from "@/components/ui";
 
 type SummaryCardsProps = {
@@ -9,7 +9,7 @@ type SummaryCardsProps = {
 
 function moneyList(items: PaymentsSummaryResponse["completed_revenue_by_currency"] | undefined) {
   if (!items?.length) return "—";
-  return items.map((item) => formatCurrency(item.amount, item.currency)).join(" · ");
+  return items.map((item) => formatCurrencyWithCode(item.amount, item.currency)).join(" ");
 }
 
 export function SummaryCards({ summary, loading }: SummaryCardsProps) {
@@ -44,7 +44,6 @@ export function SummaryCards({ summary, loading }: SummaryCardsProps) {
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {cards.map((card) => (
         <Card key={card.label} className="relative overflow-hidden">
-          <div className={`absolute right-5 top-5 h-10 w-10 rounded-2xl ${card.accent} opacity-15`} />
           <div className={`mb-5 h-2 w-12 rounded-full ${card.accent}`} />
           <p className="text-sm font-medium text-slate-500">{card.label}</p>
           <div className="mt-2 min-h-9 text-2xl font-black tracking-tight text-slate-950">

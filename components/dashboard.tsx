@@ -263,6 +263,14 @@ export function Dashboard() {
             <span className="rounded-full border border-slate-200 bg-white/70 px-4 py-2 text-xs font-semibold text-slate-500">
               API: {API_BASE_URL}
             </span>
+            <a
+              href="https://api-logali.alejotamayo.com/docs/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-brand-100 bg-white/70 px-4 py-2 text-xs font-bold text-brand-700 transition hover:border-brand-200 hover:bg-brand-50"
+            >
+              API documentación
+            </a>
           </div>
         </div>
       </header>

@@ -1,16 +1,26 @@
 import type { PaymentCurrency, PaymentRecord } from "@/types/payments";
 
-const localeByCurrency: Record<PaymentCurrency, string> = {
-  cop: "es-CO",
-  usd: "en-US",
-};
+function normalizeCurrency(currency: PaymentCurrency) {
+  return currency.trim().toUpperCase();
+}
 
 export function formatCurrency(amount: number, currency: PaymentCurrency) {
-  return new Intl.NumberFormat(localeByCurrency[currency], {
-    style: "currency",
-    currency: currency.toUpperCase(),
-    maximumFractionDigits: currency === "cop" ? 0 : 2,
-  }).format(amount);
+  const currencyCode = normalizeCurrency(currency);
+
+  try {
+    return new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: currencyCode,
+      currencyDisplay: "narrowSymbol",
+    }).format(amount);
+  } catch {
+    return `${formatNumber(amount)} ${currencyCode}`;
+  }
+}
+
+export function formatCurrencyWithCode(amount: number, currency: PaymentCurrency) {
+  const currencyCode = normalizeCurrency(currency);
+  return `${formatCurrency(amount, currencyCode)} ${currencyCode}`;
 }
 
 export function formatNumber(value: number) {

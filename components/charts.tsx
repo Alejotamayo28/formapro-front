@@ -1,5 +1,5 @@
 import type { MoneyMetric, PaymentsSummaryResponse } from "@/types/payments";
-import { formatCurrency, formatNumber, getCurrencyLabel } from "@/lib/format";
+import { formatCurrencyWithCode, formatNumber, getCurrencyLabel } from "@/lib/format";
 import { Card, SectionTitle, Spinner } from "@/components/ui";
 
 type ChartsProps = {
@@ -37,7 +37,7 @@ function MoneyRows({ title, rows, emptyLabel }: { title: string; rows: MoneyMetr
                 <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-bold text-slate-600">
                   {getCurrencyLabel(row.currency)}
                 </span>
-                <span className="font-bold text-slate-950">{formatCurrency(row.amount, row.currency)}</span>
+                <span className="font-bold text-slate-950">{formatCurrencyWithCode(row.amount, row.currency)}</span>
               </div>
               <div className="h-3 rounded-full bg-slate-100">
                 <div className="h-3 rounded-full bg-gradient-to-r from-brand-500 to-cyan-400" style={{ width: `${width}%` }} />
@@ -81,7 +81,7 @@ export function Charts({ summary, loading }: ChartsProps) {
         <SectionTitle
           eyebrow="Monedas"
           title="Ingresos y ticket promedio"
-          description="Métricas monetarias agrupadas por COP/USD."
+          description="Métricas monetarias agrupadas por moneda."
         />
         <div className="mt-6 grid gap-7 md:grid-cols-2">
           {loading ? (
