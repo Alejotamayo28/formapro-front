@@ -29,6 +29,12 @@ Documentación OpenAPI/Swagger de la API:
 https://api-logali.alejotamayo.com/docs
 ```
 
+Repositorio de la API backend:
+
+```txt
+https://github.com/Alejotamayo28/formapro-api
+```
+
 Además, configuré cache en el edge de Cloudflare únicamente para las rutas de lectura más usadas por el dashboard:
 
 - `GET /payments`
