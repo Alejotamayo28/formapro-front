@@ -35,8 +35,8 @@ export async function getHealth(signal?: AbortSignal) {
   return fetchJson<HealthResponse>(buildUrl("/health"), signal);
 }
 
-export async function getPaymentsSummary(filters: Pick<PaymentFilters, "course"> = {}, signal?: AbortSignal) {
-  return fetchJson<PaymentsSummaryResponse>(buildUrl("/payments/summary", { course: filters.course }), signal);
+export async function getPaymentsSummary(signal?: AbortSignal) {
+  return fetchJson<PaymentsSummaryResponse>(buildUrl("/payments/summary"), signal);
 }
 
 export async function getPayments(query: PaymentsQuery, signal?: AbortSignal) {

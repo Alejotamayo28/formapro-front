@@ -67,7 +67,7 @@ export function FiltersPanel({
         <SectionTitle
           eyebrow="Búsqueda"
           title="Filtros"
-          description="Filtra por estado, moneda, curso, nombre o email. El resumen de la API solo acepta filtro por curso."
+          description="Filtra la tabla de pagos por estado, moneda, curso, nombre o email."
         />
         <button
           type="button"

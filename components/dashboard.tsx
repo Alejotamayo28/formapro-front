@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { API_BASE_URL, exportPaymentsCsv, getHealth, getPayments, getPaymentsSummary } from "@/lib/api";
 import type {
   PaymentFilters,
@@ -32,12 +32,6 @@ function StatusIndicator({ status }: { status: ApiStatus }) {
       {copy.label}
     </div>
   );
-}
-
-function describeFilters(filters: PaymentFilters) {
-  const active = Object.entries(filters).filter(([, value]) => value);
-  if (!active.length) return "Sin filtros activos";
-  return `${active.length} filtro${active.length === 1 ? "" : "s"} activo${active.length === 1 ? "" : "s"}`;
 }
 
 function SkeletonBlock({ className = "" }: { className?: string }) {
@@ -140,8 +134,6 @@ export function Dashboard() {
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
 
-  const filterDescription = useMemo(() => describeFilters(filters), [filters]);
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -161,7 +153,7 @@ export function Dashboard() {
     setSummaryLoading(true);
     setSummaryError(null);
 
-    getPaymentsSummary({ course: filters.course }, controller.signal)
+    getPaymentsSummary(controller.signal)
       .then((data) => setSummary(data))
       .catch((error: unknown) => {
         if (controller.signal.aborted) return;
@@ -173,7 +165,7 @@ export function Dashboard() {
       });
 
     return () => controller.abort();
-  }, [filters.course]);
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -288,7 +280,6 @@ export function Dashboard() {
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-brand-600">Resumen</p>
           <h2 className="mt-1 text-2xl font-black text-slate-950">Métricas principales</h2>
         </div>
-        <p className="text-sm font-medium text-slate-500">{filterDescription}</p>
       </section>
 
       {summaryError ? (
